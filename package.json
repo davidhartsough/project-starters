@@ -1,0 +1,29 @@
+{
+  "name": "project-starters",
+  "version": "0.1.0",
+  "description": "Checklists and templates for basic projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidhartsough/project-starters.git"
+  },
+  "author": "David Hartsough",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidhartsough/project-starters/issues"
+  },
+  "homepage": "https://github.com/davidhartsough/project-starters#readme",
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "prettier": "^1.16.4"
+  }
+}
