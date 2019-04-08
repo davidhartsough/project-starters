@@ -97,13 +97,204 @@ The user will be able to interact with data processing apps by:
 
 ### JavaScript (`index.js`)
 
-#### High-level review
+#### Helper functions
+
+(Optional) Create any necessary helper functions at the top, such as `$()` for getting elements by `id`.
+
+**Example**
+
+```js
+function $(id) {
+  return document.getElementById(id);
+}
+```
+
+#### Event handler functions
+
+##### Step 1: Initialize
+
+Create any necessary event handler functions, such as `handleClick()` for handling the onClick event of the primary submission button.
+
+**Example**
+
+```js
+function handleClick() {
+  // Handle the click event of the submission button
+  console.log("Button clicked");
+}
+```
+
+##### Step 2: Assign
+
+Assign the event handler functions to their respective DOM elements.
+
+**Example**
+
+```js
+$("calculate").onclick = handleClick;
+```
+
+##### Test
+
+Run the application, open the console, and click the button. You should see something in the logs if everything was done correctly by this point. (Repeat for any additional handled events besides the primary submission button click event.)
+
+##### Step 3: Gather input
+
+Get the user's input data from the HTML inputs (or similar) from within the primary submission handler function.
+
+**Example**
+
+```js
+function handleClick() {
+  // Handle the click event of the submission button
+  console.log("Button clicked");
+  // Example of getting a number from a number input
+  var numberInput = $("numberInput").valueAsNumber;
+  console.log("The value of the input 'numberInput' is: " + numberInput);
+  // Example of getting a string from a text input
+  var stringInput = $("textInput").value;
+  console.log("The value of the input 'textInput' is: " + stringInput);
+  // Example of getting a array of strings from a group of inputs with a shared class name
+  var inputGroup = document.getElementsByClassName("input-group");
+  var inputValues = [];
+  for (var i = 0; i < inputGroup.length; i++) {
+    inputValues.push(inputGroup[i].value);
+  }
+  console.log(inputValues);
+}
+```
+
+##### Test
+
+Run the application, input data into the input elements, open the console, and click the button. You should see your input data in the logs if everything was done correctly by this point. (Repeat for any additional handled events besides the primary submission button click event.)
+
+##### (Optional) Step 3.5: Validate
+
+If it is necessary to validate the input data via JavaScript, then now is the time to do so. Create the appropriate conditional checks to ensure the input data is valid. If the input data is invalid, inform the user of the error.
+
+**Example 1**
+
+```js
+function handleClick() {
+  // Handle the click event of the submission button
+  console.log("Button clicked");
+  // Example of getting a number from a number input
+  var numberInput = $("numberInput").valueAsNumber;
+  console.log("The value of the input 'numberInput' is: " + numberInput);
+  // Validate the input and ensure it is a number.
+  if (isNaN(numberInput)) {
+    // numberInput is not a number. Inform the user of the error.
+    $("input-error").innerText = "Please enter a number.";
+    return;
+  } else {
+    // numberInput is a number. Ensure the error text is cleared.
+    $("input-error").innerText = "";
+  }
+}
+```
+
+**Example 2**
+
+```js
+function handleClick() {
+  var birthdayInput = $("birthday").value;
+  if (isNaN(Date.parse(birthdayInput))) {
+    $("input-error").innerText = "Please enter a number.";
+    return;
+  } else {
+    $("input-error").innerText = "";
+  }
+}
+```
+
+**Test**
+
+Run the application, input invalid data into the input elements, and click the button. You should see your input error messages if everything was done correctly by this point.
+
+##### Step 4: Mock output
+
+Create "dummy data" placeholder examples for the output.
+
+**Example 1**
+
+```js
+function handleClick() {
+  // Example of getting a number from a number input
+  var numberInput = $("numberInput").valueAsNumber;
+  console.log("The value of the input 'numberInput' is: " + numberInput);
+  // FIXME: Define the results with mock data.
+  var results = 7;
+  // Output the results
+  $("output").innerText = result.toFixed(2);
+}
+```
+
+**Example 2**
+
+```js
+function handleClick() {
+  /* ... */
+  // FIXME: Define the results with mock data.
+  var results = ["Red", "Blue", "Green"];
+  // First, clear the output list
+  $("output-list").innerHTML = "";
+  // Then output the results as individual list items
+  for (var i = 0; i < results.length; i++) {
+    var li = document.createElement("li");
+    li.appendChild(document.createTextNode(results[i]));
+    $("output-list").appendChild(li);
+  }
+}
+```
+
+##### Test
+
+Run the application and click the submission button. You should see your mock data output into your output element(s) if everything was done correctly by this point. (Repeat for any additional output.)
+
+##### Step 5: Process data
+
+This is where the real magic happens. How the input data is processed will vary entirely depending on the application. However, no matter what the processing is, it needs to happen after gathering and validating the input and before generating the output. This step will replace the mock output data in the previous step.
+
+**Example 1: Tip calculator**
+
+```js
+function handleClick() {
+  // Example of getting a number from a number input
+  var numberInput = $("numberInput").valueAsNumber;
+  console.log("The value of the input 'numberInput' is: " + numberInput);
+  // Example of calculating a 20% tip
+  var results = numberInput * 0.2;
+  // Output the results
+  $("output").innerText = result.toFixed(2);
+}
+```
+
+If the data processing logic is lengthy and complex, break it out into a separate function. (That separate function can then be used to easily test the processing logic.)
+
+**Example 2: Age calculator**
+
+```js
+function calculateAge(birthday) {
+  var date = new Date(Date.now() - birthday);
+  return Math.abs(date.getUTCFullYear() - 1970);
+}
+function handleClick() {
+  var birthdayInput = $("birthday").value;
+  var birthday = Date.parse(birthdayInput);
+  if (isNaN(birthday)) {
+    $("input-error").innerText = "Please enter a number.";
+    return;
+  } else {
+    $("input-error").innerText = "";
+  }
+  var result = calculateAge(birthday);
+  $("output").innerText = result;
+}
+```
+
+#### High-level overview
 
 1. Are all the necessary helper functions defined at the top, such as `$()` for getting elements by `id`?
 1. Are all the necessary global variables defined just below that, such as constants or persisting values?
 1. Are all the necessary processing and calculation functions defined after that, such as the primary button click event handler function?
 1. Is the primary click event handler function assigned to the `onclick` of the submission button?
-
-#### Low-level breakdown
-
-// TODO

@@ -4,14 +4,14 @@ function $(id) {
 }
 
 // Create a function to handle the click event for the calculate button.
-function calculateSomething() {
+function handleClick() {
   console.log("Calculate button clicked. Beginning calculation.");
 
   // Get the user's input.
-  // NOTE: This example casts the string values to numbers.
-  var input1 = Number($("input1").value);
+  // NOTE: This example gets the input values as numbers.
+  var input1 = $("input1").valueAsNumber;
   console.log("The value of the input 'input1' is: " + input1);
-  var input2 = Number($("input2").value);
+  var input2 = $("input2").valueAsNumber;
   console.log("The value of the input 'input2' is: " + input2);
 
   /*
@@ -53,4 +53,4 @@ function calculateSomething() {
 }
 
 // Assign the onclick event of the calculate button to the calculateSomething function.
-$("calculate").onclick = calculateSomething;
+$("calculate").onclick = handleClick;
